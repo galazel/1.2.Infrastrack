@@ -1,0 +1,8 @@
+package com.infrastrack.backend.commons;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.NoRepositoryBean;
+
+@NoRepositoryBean
+public interface RepoGeneric<T> extends JpaRepository<T, Long> {
+}
