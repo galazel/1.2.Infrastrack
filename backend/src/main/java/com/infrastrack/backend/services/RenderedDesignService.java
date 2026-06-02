@@ -22,4 +22,19 @@ public class RenderedDesignService implements ServiceGeneric<RenderedDesignDto> 
     public void requestVerification(String email) {
 
     }
+
+    @Override
+    public long create(RenderedDesignDto dto) {
+        return 0;
+    }
+
+    @Override
+    public String update(RenderedDesignDto dto) {
+        return "";
+    }
+
+    @Override
+    public String delete(long id) {
+        return "";
+    }
 }

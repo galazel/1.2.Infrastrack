@@ -33,5 +33,10 @@ public class ControllerGeneric <T, V extends ServiceGeneric<T>> {
         service.requestVerification(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    @PostMapping("create")
+    public ResponseEntity<String> create(@RequestBody T entity) {
+        return new ResponseEntity<>(service.create(entity), HttpStatus.OK);
+    }
+
 
 }

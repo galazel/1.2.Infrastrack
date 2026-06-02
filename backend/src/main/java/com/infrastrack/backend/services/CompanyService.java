@@ -22,4 +22,19 @@ public class CompanyService implements ServiceGeneric<CompanyDto> {
     public void requestVerification(String email) {
 
     }
+
+    @Override
+    public long create(CompanyDto dto) {
+        return 0;
+    }
+
+    @Override
+    public String update(CompanyDto dto) {
+        return "";
+    }
+
+    @Override
+    public String delete(long id) {
+        return "";
+    }
 }

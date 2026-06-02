@@ -92,4 +92,5 @@ public class AssistantConfig {
                 .minScore(0.25)
                 .build();
     }
+
 }

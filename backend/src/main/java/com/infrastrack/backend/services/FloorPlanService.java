@@ -22,4 +22,19 @@ public class FloorPlanService implements ServiceGeneric<FloorPlanDto> {
     public void requestVerification(String email) {
 
     }
+
+    @Override
+    public long create(FloorPlanDto dto) {
+        return 0;
+    }
+
+    @Override
+    public String update(FloorPlanDto dto) {
+        return "";
+    }
+
+    @Override
+    public String delete(long id) {
+        return "";
+    }
 }

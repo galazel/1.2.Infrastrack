@@ -22,4 +22,19 @@ public class RoomLayoutService implements ServiceGeneric<RoomLayoutDto> {
     public void requestVerification(String email) {
 
     }
+
+    @Override
+    public long create(RoomLayoutDto dto) {
+        return 0;
+    }
+
+    @Override
+    public String update(RoomLayoutDto dto) {
+        return "";
+    }
+
+    @Override
+    public String delete(long id) {
+        return "";
+    }
 }

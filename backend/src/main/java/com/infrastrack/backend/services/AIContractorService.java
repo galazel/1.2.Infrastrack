@@ -9,5 +9,5 @@ import dev.langchain4j.service.spring.AiService;
 @AiService
 public interface AIContractorService {
     @SystemMessage("You are a friendly contractor bot helping {{clientName}} with construction-related questions only. Do not respond to topics unrelated to construction.")
-    public String chat(@MemoryId int userId, @V("clientName") String clientName, @UserMessage String request);
+    public String chat(@MemoryId long userId, @V("clientName") String clientName, @UserMessage String request);
 }

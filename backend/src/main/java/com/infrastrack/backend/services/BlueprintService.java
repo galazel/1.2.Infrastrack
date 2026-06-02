@@ -22,4 +22,19 @@ public class BlueprintService implements ServiceGeneric<BlueprintDto> {
     public void requestVerification(String email) {
 
     }
+
+    @Override
+    public long create(BlueprintDto dto) {
+        return 0;
+    }
+
+    @Override
+    public String update(BlueprintDto dto) {
+        return "";
+    }
+
+    @Override
+    public String delete(long id) {
+        return "";
+    }
 }
