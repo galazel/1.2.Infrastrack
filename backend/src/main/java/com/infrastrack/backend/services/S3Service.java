@@ -1,5 +1,7 @@
 package com.infrastrack.backend.services;
 
+import com.infrastrack.backend.dto.BlueprintDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,44 +13,47 @@ import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class S3Service {
 
     @Value("${aws.s3.bucket-name}")
     private String bucketName;
-
     private final S3Client s3Client;
 
-    public S3Service(S3Client s3Client) {
-        this.s3Client = s3Client;
-    }
 
-    
-    public String upload(MultipartFile file, String folderName, int projectId) throws IOException {
 
-        String key = projectId + "-" + file.getOriginalFilename();
 
-        key = switch (folderName.toLowerCase()) {
+    public List<String> upload(List<MultipartFile> files, String folderName, long projectId) throws IOException {
+        List<String> keys = new ArrayList<>();
 
-            case "blueprints" -> "blueprints/" + key;
-            case "floor-plans" -> "floor-plans/" + key;
-            case "rendered-designs" -> "rendered-designs/" + key;
-            case "room-layouts" -> "room-layouts/" + key;
+        for (MultipartFile file : files) {
+            String key = projectId + "-" + file.getOriginalFilename();
 
-            default -> "misc/" + key;
-        };
+            key = switch (folderName.toLowerCase()) {
 
-        s3Client.putObject(
-                PutObjectRequest.builder()
-                        .bucket(bucketName)
-                        .key(key)
-                        .contentType(file.getContentType())
-                        .build(),
-                RequestBody.fromBytes(file.getBytes())
-        );
+                case "blueprints" -> "blueprints/" + key;
+                case "floor-plans" -> "floor-plans/" + key;
+                case "rendered-designs" -> "rendered-designs/" + key;
+                case "room-layouts" -> "room-layouts/" + key;
 
-        return key;
+                default -> "misc/" + key;
+            };
+
+            s3Client.putObject(
+                    PutObjectRequest.builder()
+                            .bucket(bucketName)
+                            .key(key)
+                            .contentType(file.getContentType())
+                            .build(),
+                    RequestBody.fromBytes(file.getBytes())
+            );
+            keys.add(key);
+        }
+        return keys;
     }
 
     public ResponseInputStream<GetObjectResponse> getFileStream(String key) {

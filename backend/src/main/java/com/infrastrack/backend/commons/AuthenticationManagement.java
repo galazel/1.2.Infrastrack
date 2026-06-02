@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AuthenticationManagement {  // ✅ removed unused <T>
+public class AuthenticationManagement {
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
-    public String authenticateThenToken(AuthCredentials credentials) { // ✅ removed unused Role param
+    public String authenticateThenToken(AuthCredentials credentials) {
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -33,9 +33,9 @@ public class AuthenticationManagement {  // ✅ removed unused <T>
             return jwtUtils.generateToken(userDetails);
 
         } catch (BadCredentialsException e) {
-            throw new BadCredentialsException("Invalid email or password"); // ✅ proper exception
+            throw new BadCredentialsException("Invalid email or password");
         } catch (Exception e) {
-            throw new RuntimeException("Authentication failed: " + e.getMessage()); // ✅ don't return error as string
+            throw new RuntimeException("Authentication failed: " + e.getMessage());
         }
     }
 }

@@ -2,22 +2,43 @@ package com.infrastrack.backend.controllers;
 
 import com.infrastrack.backend.commons.ControllerGeneric;
 import com.infrastrack.backend.dto.BlueprintDto;
-import com.infrastrack.backend.models.Blueprint;
-import com.infrastrack.backend.repositories.BlueprintRepository;
 import com.infrastrack.backend.services.BlueprintService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import com.infrastrack.backend.services.S3Service;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import jakarta.validation.Valid;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/blueprints")
+@RequestMapping("api/v1/companies/blueprints")
+@Slf4j
 public class BlueprintController extends ControllerGeneric<BlueprintDto, BlueprintService> {
 
-    public BlueprintController(BlueprintService service) {
+    private final S3Service  s3Service;
+
+    public BlueprintController(BlueprintService service, S3Service s3Service) {
         super(service);
+        this.s3Service = s3Service;
     }
+
+
+    @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> upload(
+            @RequestParam("projectId") Long projectId,
+            @RequestParam("blueprints") List<MultipartFile> files
+    ) throws IOException {
+        log.info("Uploading blueprint files to S3 {}", files);
+        List<String> keys = s3Service.upload(files, "blueprints", projectId);
+        service.create(BlueprintDto.builder()
+                        .keys(keys)
+                        .projectId(projectId)
+                .build());
+        return ResponseEntity.ok("Uploaded " + files.size() + " files successfully");
+    }
+
 }

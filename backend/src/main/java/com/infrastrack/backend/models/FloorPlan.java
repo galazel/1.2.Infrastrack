@@ -18,7 +18,7 @@ public class FloorPlan {
     private Long id;
 
     @NotBlank
-    private String bucketName;
+    private String key;
 
     @NotNull
     private Long projectId;

@@ -39,6 +39,12 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                     && SecurityContextHolder.getContext().getAuthentication() == null) {
 
                 String username = jwtUtils.getUsernameFromToken(token);
+                if (username == null) {
+                    logger.error("Cannot set user authentication: username extracted from token is null");
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    return;
+                }
+
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 if (userDetails != null && userDetails.isEnabled()) {
@@ -47,7 +53,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                             new UsernamePasswordAuthenticationToken(
                                     userDetails,
                                     null,
-                                    userDetails.getAuthorities() 
+                                    userDetails.getAuthorities()
                             );
 
                     authentication.setDetails(
@@ -58,7 +64,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
-            logger.error("Cannot set user authentication: {}" + e.getMessage());
+            logger.error("Cannot set user authentication: " + e.getMessage(), e);
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             return;
         }

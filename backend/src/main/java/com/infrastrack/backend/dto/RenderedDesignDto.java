@@ -2,12 +2,14 @@ package com.infrastrack.backend.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 public class RenderedDesignDto {
     private Long id;
-    private String bucketName;
+    private List<String> keys;
     private Long projectId;
 }

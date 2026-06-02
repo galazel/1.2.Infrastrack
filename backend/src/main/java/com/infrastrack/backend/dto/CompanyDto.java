@@ -16,9 +16,5 @@ public class CompanyDto implements AuthCredentials {
     private String licensedNumber;
     private String description;
     private String profile;
-
-    @Override
-    public String getPassword() {
-        return "";
-    }
+    private String password;
 }
