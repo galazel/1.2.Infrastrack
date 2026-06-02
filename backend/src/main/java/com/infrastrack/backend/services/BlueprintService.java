@@ -1,25 +1,32 @@
 package com.infrastrack.backend.services;
 
+import com.infrastrack.backend.commons.AuthenticationManagement;
 import com.infrastrack.backend.commons.ServiceGeneric;
+import com.infrastrack.backend.commons.ServiceParent;
 import com.infrastrack.backend.dto.BlueprintDto;
 import com.infrastrack.backend.mappers.BlueprintMapper;
 import com.infrastrack.backend.models.Blueprint;
 import com.infrastrack.backend.models.Project;
 import com.infrastrack.backend.repositories.BlueprintRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.services.s3.S3Client;
 
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
-public class BlueprintService implements ServiceGeneric<BlueprintDto> {
+public class BlueprintService extends ServiceParent implements ServiceGeneric<BlueprintDto> {
 
     private final BlueprintRepository blueprintRepository;
     private final BlueprintMapper blueprintMapper;
-    private final S3Service s3Service;
 
+    public BlueprintService(PasswordEncoder passwordEncoder, AuthenticationManagement authenticationManagement, VerificationService verificationService, S3Service s3Service, BlueprintRepository blueprintRepository, BlueprintMapper blueprintMapper, S3Service s3Service1) {
+        super(passwordEncoder, authenticationManagement, verificationService, s3Service);
+        this.blueprintRepository = blueprintRepository;
+        this.blueprintMapper = blueprintMapper;
+    }
 
     @Override
     public String login(BlueprintDto dto) {
@@ -27,7 +34,7 @@ public class BlueprintService implements ServiceGeneric<BlueprintDto> {
     }
 
     @Override
-    public String register(BlueprintDto dto , String code) {
+    public String register(BlueprintDto dto , String code, MultipartFile file) {
         return null;
     }
 

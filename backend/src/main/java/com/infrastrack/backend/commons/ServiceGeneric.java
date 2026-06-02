@@ -1,13 +1,13 @@
 package com.infrastrack.backend.commons;
 
+import org.springframework.web.multipart.MultipartFile;
 
-import com.infrastrack.backend.dto.ProjectDto;
+import java.io.IOException;
 
 public interface ServiceGeneric<T> {
-    String login(T dto);
-    String register(T dto, String code) throws Exception;
-    void requestVerification(String email);
     long create(T dto);
+    String login(T dto);
+    String register(T dto, String code, MultipartFile file) throws Exception;
     String update(T dto);
     String delete(long id);
 }

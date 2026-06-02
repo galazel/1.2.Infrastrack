@@ -16,7 +16,7 @@ import java.util.List;
 
 
 @Slf4j
-public class ControllerGeneric <T, V extends ServiceGeneric<T>> {
+public class ControllerGeneric <T, V extends ServiceParent & ServiceGeneric<T> > {
 
     protected final V service;
 
@@ -29,11 +29,18 @@ public class ControllerGeneric <T, V extends ServiceGeneric<T>> {
         return new ResponseEntity<>(service.login(entity), HttpStatus.OK);
     }
 
-    @PostMapping("register")
-    public ResponseEntity<String> create(@RequestBody T entity, @RequestParam("code") String code) throws Exception {
-        return new ResponseEntity<>(service.register(entity, code),HttpStatus.OK);
+    @PostMapping(value = "register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> create(
+            @RequestPart("entity") T entity,
+            @RequestParam("code") String code,
+            @RequestPart("profile") MultipartFile file) throws Exception {
+
+        return new ResponseEntity<>(
+                service.register(entity, code, file),
+                HttpStatus.OK
+        );
     }
-   
+
 
     @PostMapping("request-verification")
     public ResponseEntity<String> verify(@RequestParam("email") String email) {
@@ -45,8 +52,6 @@ public class ControllerGeneric <T, V extends ServiceGeneric<T>> {
     public ResponseEntity<Long> create(@RequestBody T entity) {
         return new ResponseEntity<>(service.create(entity), HttpStatus.OK);
     }
-
-
 
 
 

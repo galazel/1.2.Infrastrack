@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AuthenticationManagement {
+public class AuthenticationManagement{
 
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;

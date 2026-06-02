@@ -1,21 +1,30 @@
 package com.infrastrack.backend.services;
 
+import com.infrastrack.backend.commons.AuthenticationManagement;
 import com.infrastrack.backend.commons.ServiceGeneric;
+import com.infrastrack.backend.commons.ServiceParent;
 import com.infrastrack.backend.dto.ProjectDto;
 import com.infrastrack.backend.mappers.ProjectMapper;
 import com.infrastrack.backend.models.Project;
 import com.infrastrack.backend.repositories.ProjectRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
-@RequiredArgsConstructor
 @Transactional
-public class ProjectService implements ServiceGeneric<ProjectDto> {
+public class ProjectService extends ServiceParent implements ServiceGeneric<ProjectDto> {
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
+
+    public ProjectService(PasswordEncoder passwordEncoder, AuthenticationManagement authenticationManagement, VerificationService verificationService, S3Service s3Service, ProjectRepository projectRepository, ProjectMapper projectMapper) {
+        super(passwordEncoder, authenticationManagement, verificationService, s3Service);
+        this.projectRepository = projectRepository;
+        this.projectMapper = projectMapper;
+    }
 
     @Override
     public String login(ProjectDto dto) {
@@ -23,7 +32,7 @@ public class ProjectService implements ServiceGeneric<ProjectDto> {
     }
 
     @Override
-    public String register(ProjectDto dto, String code) throws Exception {
+    public String register(ProjectDto dto, String code, MultipartFile file) {
         return "";
     }
 
