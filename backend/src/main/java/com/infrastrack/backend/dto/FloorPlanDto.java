@@ -12,4 +12,5 @@ public class FloorPlanDto {
     private Long id;
     private List<String> keys;
     private Long projectId;
+    private String description;
 }

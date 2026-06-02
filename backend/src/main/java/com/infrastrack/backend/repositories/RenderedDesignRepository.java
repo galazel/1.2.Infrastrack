@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RenderedDesignRepository extends RepoGeneric<RenderedDesign> {
+    java.util.List<RenderedDesign> findAllByProjectId(long projectId);
 }

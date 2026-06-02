@@ -22,4 +22,6 @@ public class RoomLayout {
 
     @NotNull
     private Long projectId;
+    private String description;
+
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoomLayoutRepository extends RepoGeneric<RoomLayout> {
+    java.util.List<RoomLayout> findAllByProjectId(long projectId);
 }

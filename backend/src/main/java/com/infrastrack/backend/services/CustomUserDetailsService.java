@@ -22,14 +22,14 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Optional<Customer> customer = customerRepository.findByEmail(email);
-        if (customer.isPresent()) {
-            return customer.get();
-        }
-
         Optional<Company> company = companyRepository.findByEmail(email);
         if (company.isPresent()) {
             return company.get();
+        }
+
+        Optional<Customer> customer = customerRepository.findByEmail(email);
+        if (customer.isPresent()) {
+            return customer.get();
         }
         throw new UsernameNotFoundException("No account found with email: " + email);
     }

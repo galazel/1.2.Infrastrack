@@ -33,7 +33,6 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                                     FilterChain filterChain) throws ServletException, IOException {
         try {
             String token = jwtUtils.getTokenFromHeader(request);
-
             if (token != null
                     && jwtUtils.validateToken(token)
                     && SecurityContextHolder.getContext().getAuthentication() == null) {

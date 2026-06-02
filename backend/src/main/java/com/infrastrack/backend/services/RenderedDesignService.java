@@ -50,6 +50,7 @@ public class RenderedDesignService extends ServiceParent implements ServiceGener
                 renderedDesignRepository.save(RenderedDesign.builder()
                         .key(key)
                         .projectId(dto.getProjectId())
+                        .description(dto.getDescription())
                         .build());
             }
             return renderedDesignRepository.count();
@@ -67,5 +68,20 @@ public class RenderedDesignService extends ServiceParent implements ServiceGener
     @Override
     public String delete(long id) {
         return "";
+    }
+
+    public java.util.Map<String, String> getAllRenderedDesignsFromProject(long projectId) {
+
+        java.util.Map<String, String> map = new java.util.HashMap<>();
+
+        java.util.List<RenderedDesign> designs =
+                renderedDesignRepository.findAllByProjectId(projectId);
+
+        designs.forEach(d -> {
+            String url = "/rendered-designs/image/" + d.getKey();
+            map.put(d.getDescription(), url);
+        });
+
+        return map;
     }
 }

@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "blueprints")
 @Data
@@ -22,4 +24,6 @@ public class Blueprint {
 
     @NotNull
     private Long projectId;
+
+    private String description;
 }

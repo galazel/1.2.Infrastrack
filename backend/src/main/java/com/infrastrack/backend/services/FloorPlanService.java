@@ -49,6 +49,7 @@ public class FloorPlanService extends ServiceParent implements ServiceGeneric<Fl
                 floorPlanRepository.save(FloorPlan.builder()
                         .key(key)
                         .projectId(dto.getProjectId())
+                        .description(dto.getDescription())
                         .build());
             }
             return floorPlanRepository.count();
@@ -66,5 +67,20 @@ public class FloorPlanService extends ServiceParent implements ServiceGeneric<Fl
     @Override
     public String delete(long id) {
         return "";
+    }
+
+    public java.util.Map<String, String> getAllFloorPlansFromProject(long projectId) {
+
+        java.util.Map<String, String> map = new java.util.HashMap<>();
+
+        java.util.List<FloorPlan> floorPlans =
+                floorPlanRepository.findAllByProjectId(projectId);
+
+        floorPlans.forEach(fp -> {
+            String url = "/floor-plans/image/" + fp.getKey();
+            map.put(fp.getDescription(), url);
+        });
+
+        return map;
     }
 }

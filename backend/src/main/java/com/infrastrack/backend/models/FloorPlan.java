@@ -22,4 +22,6 @@ public class FloorPlan {
 
     @NotNull
     private Long projectId;
+    private String description;
+
 }

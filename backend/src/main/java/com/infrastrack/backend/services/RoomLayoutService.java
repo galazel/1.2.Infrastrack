@@ -49,6 +49,7 @@ public class RoomLayoutService extends ServiceParent implements ServiceGeneric<R
                 roomLayoutRepository.save(RoomLayout.builder()
                         .key(key)
                         .projectId(dto.getProjectId())
+                        .description(dto.getDescription())
                         .build());
             }
             return roomLayoutRepository.count();
@@ -66,5 +67,20 @@ public class RoomLayoutService extends ServiceParent implements ServiceGeneric<R
     @Override
     public String delete(long id) {
         return "";
+    }
+
+    public java.util.Map<String, String> getAllRoomLayoutsFromProject(long projectId) {
+
+        java.util.Map<String, String> map = new java.util.HashMap<>();
+
+        java.util.List<RoomLayout> layouts =
+                roomLayoutRepository.findAllByProjectId(projectId);
+
+        layouts.forEach(l -> {
+            String url = "/room-layouts/image/" + l.getKey();
+            map.put(l.getDescription(), url);
+        });
+
+        return map;
     }
 }

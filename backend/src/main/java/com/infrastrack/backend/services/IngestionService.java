@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 
 @Service
 @AllArgsConstructor
@@ -27,12 +28,12 @@ public class IngestionService {
     private final EmbeddingModel embeddingModel;
     private final EmbeddingStore<TextSegment> embeddingStore;
 
-    public void ingest(MultipartFile file, String clientName) {
+    public void ingest(MultipartFile file, long projectId) {
         try {
             Path tempFile = Files.createTempFile("ingest-", file.getOriginalFilename());
             file.transferTo(tempFile);
 
-            String fileName = file.getOriginalFilename().toLowerCase();
+            String fileName = Objects.requireNonNull(file.getOriginalFilename()).toLowerCase();
 
             Document document;
 
@@ -52,7 +53,7 @@ public class IngestionService {
                     .textSegmentTransformer(segment ->
                             TextSegment.from(
                                     segment.text(),
-                                    Metadata.from("clientName", clientName)
+                                    new Metadata().put("projectId", projectId)
                             )
                     )
                     .build();

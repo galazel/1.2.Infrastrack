@@ -22,4 +22,6 @@ public class RenderedDesign {
 
     @NotNull
     private Long projectId;
+    private String description;
+
 }

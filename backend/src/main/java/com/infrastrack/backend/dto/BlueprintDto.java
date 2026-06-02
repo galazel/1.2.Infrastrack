@@ -12,4 +12,6 @@ public class BlueprintDto {
     private Long id;
     private List<String> keys;
     private Long projectId;
+    private String description;
+    private String key;
 }
