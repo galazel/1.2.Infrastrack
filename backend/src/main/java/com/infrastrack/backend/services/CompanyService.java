@@ -14,7 +14,12 @@ public class CompanyService implements ServiceGeneric<CompanyDto> {
     }
 
     @Override
-    public String register(CompanyDto dto) {
+    public String register(CompanyDto dto , String code) {
         return null;
+    }
+
+    @Override
+    public void requestVerification(String email) {
+
     }
 }

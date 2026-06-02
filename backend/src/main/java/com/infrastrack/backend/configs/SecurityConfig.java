@@ -68,8 +68,11 @@ public class SecurityConfig {
                     auth.requestMatchers(
                             "/api/v1/customers/login",
                             "/api/v1/customers/register",
+                            "/api/v1/customers/request-verification",
                             "/api/v1/companies/login",
-                            "/api/v1/companies/register"
+                            "/api/v1/companies/register",
+                            "/api/v1/companies/request-verification"
+
                     ).permitAll();
                     auth.requestMatchers("/api/v1/customers/**").hasRole("CUSTOMER");
                     auth.requestMatchers("/api/v1/companies/**").hasRole("COMPANY");

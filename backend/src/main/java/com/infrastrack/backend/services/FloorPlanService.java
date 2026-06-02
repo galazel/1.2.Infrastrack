@@ -14,7 +14,12 @@ public class FloorPlanService implements ServiceGeneric<FloorPlanDto> {
     }
 
     @Override
-    public String register(FloorPlanDto dto) {
+    public String register(FloorPlanDto dto , String code) {
         return null;
+    }
+
+    @Override
+    public void requestVerification(String email) {
+
     }
 }

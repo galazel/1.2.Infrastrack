@@ -2,6 +2,22 @@ spring:
   application:
     name: backend
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${GMAIL_ADD}
+    password: ${GMAIL_PASS}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+            required: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
   app:
     jwt:
       secret: ${SECRET_KEY}
@@ -20,7 +36,7 @@ spring:
 langchain4j:
   open-ai:
     api-key: ${GITHUB_KEY}
-    base-url: https://api.openai.com/v1
+    base-url: https://models.inference.ai.azure.com
     chat-model:
       model-name: gpt-4o
       temperature: 0.7
@@ -42,6 +58,13 @@ aws:
     credentials:
       access-key: ${AWS_ACCESS_KEY}
       secret-key: ${AWS_SECRET_KEY}
+
+mail:
+  imap:
+    host: imap.gmail.com
+    port: 993
+    username: ${GMAIL_ADD}
+    password: ${GMAIL_PASS}
 
 server:
   port: 8081

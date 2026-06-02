@@ -14,7 +14,12 @@ public class RoomLayoutService implements ServiceGeneric<RoomLayoutDto> {
     }
 
     @Override
-    public String register(RoomLayoutDto dto) {
+    public String register(RoomLayoutDto dto , String code) {
         return null;
+    }
+
+    @Override
+    public void requestVerification(String email) {
+
     }
 }

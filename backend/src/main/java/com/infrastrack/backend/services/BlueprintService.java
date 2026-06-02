@@ -14,7 +14,12 @@ public class BlueprintService implements ServiceGeneric<BlueprintDto> {
     }
 
     @Override
-    public String register(BlueprintDto dto) {
+    public String register(BlueprintDto dto , String code) {
         return null;
+    }
+
+    @Override
+    public void requestVerification(String email) {
+
     }
 }

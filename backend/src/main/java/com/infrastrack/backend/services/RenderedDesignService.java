@@ -14,7 +14,12 @@ public class RenderedDesignService implements ServiceGeneric<RenderedDesignDto> 
     }
 
     @Override
-    public String register(RenderedDesignDto dto) {
+    public String register(RenderedDesignDto dto , String code) {
         return null;
+    }
+
+    @Override
+    public void requestVerification(String email) {
+
     }
 }

@@ -39,18 +39,16 @@ public class AuthTokenFilter extends OncePerRequestFilter {
                     && SecurityContextHolder.getContext().getAuthentication() == null) {
 
                 String username = jwtUtils.getUsernameFromToken(token);
-
                 UserDetails userDetails = userDetailsService.loadUserByUsername(username);
 
                 if (userDetails != null && userDetails.isEnabled()) {
 
-                    List<SimpleGrantedAuthority> authorities = jwtUtils.extractAuthorities(token)
-                            .stream()
-                            .map(SimpleGrantedAuthority::new)
-                            .toList();
-
                     UsernamePasswordAuthenticationToken authentication =
-                            new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails,
+                                    null,
+                                    userDetails.getAuthorities() 
+                            );
 
                     authentication.setDetails(
                             new WebAuthenticationDetailsSource().buildDetails(request)
