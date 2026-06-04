@@ -1,8 +1,6 @@
 import React from "react"
 import Image from "@/components/Image"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons"
-import { Textarea } from "@/components/ui/textarea"
+
 
 function NewChat() {
   return (
@@ -22,12 +20,7 @@ function NewChat() {
           </p>
         </div>
       </div>
-      <div className="grid h-full w-full grid-cols-[1fr_5%] overflow-hidden rounded-2xl border-2 border-black ">
-        <Textarea className="h-full w-full resize-none rounded-none border-none p-5" placeholder='Ask anything'/>
-        <div className="flex items-center justify-center">
-          <FontAwesomeIcon icon={faPaperPlane} className="text-2xl" />
-        </div>
-      </div>
+      
     </>
   )
 }
