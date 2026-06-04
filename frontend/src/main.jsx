@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider.tsx"
 import { BrowserRouter } from "react-router-dom";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
-createRoot.render(
+root.render(
   <StrictMode>
     <ThemeProvider>
        <BrowserRouter>
