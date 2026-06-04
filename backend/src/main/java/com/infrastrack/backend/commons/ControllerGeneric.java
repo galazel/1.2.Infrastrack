@@ -3,6 +3,7 @@ package com.infrastrack.backend.commons;
 import com.infrastrack.backend.dto.BlueprintDto;
 import com.infrastrack.backend.dto.ProjectDto;
 import com.infrastrack.backend.services.S3Service;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -25,15 +26,15 @@ public class ControllerGeneric <T, V extends ServiceParent & ServiceGeneric<T> >
         this.service = service;}
 
     @PostMapping("login")
-    public ResponseEntity<String> access(@RequestBody T entity) {
+    public ResponseEntity<String> access(@Valid @RequestBody T entity) {
         return new ResponseEntity<>(service.login(entity), HttpStatus.OK);
     }
 
     @PostMapping(value = "register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> create(
-            @RequestPart("entity") T entity,
-            @RequestParam("code") String code,
-            @RequestPart("profile") MultipartFile file) throws Exception {
+            @Valid @RequestPart("entity") T entity,
+            @Valid @RequestParam("code") String code,
+            @Valid @RequestPart("profile") MultipartFile file) throws Exception {
 
         return new ResponseEntity<>(
                 service.register(entity, code, file),
@@ -43,13 +44,13 @@ public class ControllerGeneric <T, V extends ServiceParent & ServiceGeneric<T> >
 
 
     @PostMapping("request-verification")
-    public ResponseEntity<String> verify(@RequestParam("email") String email) {
+    public ResponseEntity<String> verify( @Valid @RequestParam("email") String email) {
         service.requestVerification(email);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PostMapping("create")
-    public ResponseEntity<Long> create(@RequestBody T entity) {
+    public ResponseEntity<Long> create( @Valid @RequestBody T entity) {
         return new ResponseEntity<>(service.create(entity), HttpStatus.OK);
     }
 

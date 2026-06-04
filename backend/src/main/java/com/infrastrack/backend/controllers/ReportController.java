@@ -4,6 +4,7 @@ import com.infrastrack.backend.commons.ControllerGeneric;
 import com.infrastrack.backend.dto.ReportDto;
 import com.infrastrack.backend.services.IngestionService;
 import com.infrastrack.backend.services.ReportService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -24,22 +25,12 @@ public class ReportController extends ControllerGeneric<ReportDto, ReportService
         super(service);
         this.ingestionService = ingestionService;
     }
-    @GetMapping
-    public String index()
-    {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        return userDetails.getAuthorities().stream().findFirst().get().toString();
-    }
     @PostMapping(value = "/ingest", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<String> ingest(@RequestPart("file") MultipartFile file, @RequestParam("projectId") long projectId) {
+    public ResponseEntity<String> ingest(@Valid @RequestPart("file") MultipartFile file,  @Valid @RequestParam("projectId") long projectId) {
         log.info(file.getOriginalFilename());
         log.info(String.valueOf(projectId));
         ingestionService.ingest(file, projectId);
 
         return ResponseEntity.ok("Ingested: " + file.getOriginalFilename());
-    }
-    @PostMapping("post")
-    public String ngek(@RequestParam("name") String name){
-        return name;
     }
 }

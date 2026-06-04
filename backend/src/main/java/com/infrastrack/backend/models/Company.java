@@ -3,9 +3,7 @@ package com.infrastrack.backend.models;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.infrastrack.backend.commons.Role;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -26,19 +24,22 @@ public class Company implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "name should not be blank")
     private String name;
 
-    @Email
+    @Email(message = "email should be in valid format")
     private String email;
 
+    @Pattern(regexp = "", message = "contact number should be in valid format")
     private String contactNumber;
 
     @NotBlank
-    @Size(min = 6)
+    @Size(min = 8)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @NotNull(message = "company address should not be null")
+    @NotBlank(message = "company address should not be blank")
     private String companyAddress;
 
     private String licensedNumber;

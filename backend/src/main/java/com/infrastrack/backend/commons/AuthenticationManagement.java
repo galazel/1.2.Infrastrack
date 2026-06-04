@@ -25,13 +25,9 @@ public class AuthenticationManagement{
                             credentials.getPassword()
                     )
             );
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
             return jwtUtils.generateToken(userDetails);
-
         } catch (BadCredentialsException e) {
             throw new BadCredentialsException("Invalid email or password");
         } catch (Exception e) {

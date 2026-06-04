@@ -4,6 +4,7 @@ import com.infrastrack.backend.commons.ControllerGeneric;
 import com.infrastrack.backend.dto.CustomerDto;
 import com.infrastrack.backend.services.AIContractorService;
 import com.infrastrack.backend.services.CustomerService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ public class CustomerController extends ControllerGeneric<CustomerDto, CustomerS
     }
 
     @GetMapping("ask")
-    public ResponseEntity<String> ask(@RequestParam("question") String question ) {
+    public ResponseEntity<String> ask( @Valid @RequestParam("question") String question ) {
         return new ResponseEntity<>(aiContractorService.chat(customerService.getCustomerId(getEmail()),customerService.getCustomerName(getEmail()),question), HttpStatus.OK);
     }
 

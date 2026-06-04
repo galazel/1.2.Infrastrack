@@ -4,6 +4,7 @@ import com.infrastrack.backend.commons.ControllerGeneric;
 import com.infrastrack.backend.dto.BlueprintDto;
 import com.infrastrack.backend.services.BlueprintService;
 import com.infrastrack.backend.services.S3Service;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,8 @@ public class BlueprintController extends ControllerGeneric<BlueprintDto, Bluepri
 
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<String> upload(
-            @RequestParam("projectId") Long projectId,
-            @RequestParam("blueprints") List<MultipartFile> files
+            @Valid @RequestParam("projectId") Long projectId,
+            @Valid @RequestParam("blueprints") List<MultipartFile> files
     ) throws IOException {
         log.info("Uploading blueprint files to S3 {}", files);
         List<String> keys = s3Service.upload(files, "blueprints", projectId);

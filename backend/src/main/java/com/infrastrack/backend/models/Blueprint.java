@@ -19,11 +19,12 @@ public class Blueprint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotBlank(message = "the key for blueprint should not be blank")
     private String key;
 
-    @NotNull
+    @NotNull(message = "projectId should not be null")
     private Long projectId;
 
+    @NotNull(message = "description should not be null")
     private String description;
 }
