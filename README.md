@@ -56,6 +56,23 @@ It allows construction companies to manage projects, upload progress updates, an
 
 ---
 
+## 🎨 UI/UX Design
+
+This project is based on a custom Figma design for a construction monitoring system with AI-powered client communication.
+
+🔗 Figma Design:  
+https://www.figma.com/design/BC9LGfvYrXJVV7zp7PB6qx/Infrastrack?node-id=0-1&t=kvajtU73XyJ4qUtJ-1
+
+### ✨ Design Highlights
+- Modern dashboard layout for construction monitoring
+- Project-based UI structure (company → projects → updates)
+- Clean and minimal interface for better readability
+- AI chat interface for Contractor AI
+- Mobile-friendly responsive design approach
+- Focus on usability for both clients and contractors
+
+---
+
 ## 🔄 Workflow
 
 1. Company creates a construction project  
@@ -78,11 +95,12 @@ To improve transparency and communication in construction projects by combining:
 
 ## 🚀 Future Improvements
 
-- Mobile application (Android/iOS)
+- Mobile application (Android / iOS)
 - Real-time notifications
 - 3D visualization of construction progress
 - Voice-enabled AI assistant
 - Task scheduling for contractors
+- Role-based analytics dashboard
 
 ---
 
