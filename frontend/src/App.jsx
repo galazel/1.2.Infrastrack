@@ -13,6 +13,8 @@ import ResetPassword from "./pages/VerificationCode"
 import ResetPasswordLayout from "./layouts/ResetPasswordLayout"
 import ResetEmail from "./pages/ResetEmail"
 import VerificationCode from "./pages/VerificationCode"
+import ProtectedRoute from "./components/ProtectedRoute"
+import RoleRoute from "./components/RoleRoute"
 
 function App() {
   return (
@@ -25,14 +27,20 @@ function App() {
         <Route path="company" element={<RegisterCompany />} />
         <Route path="client" element={<RegisterClient />} />
       </Route>
-      <Route path="client" element={<ClientDashboardLayout />}>
-        <Route index element={<NewChat />} />
-        <Route path=":chatId" element={<Chat />} />
-      </Route>
-      <Route path="company" element={<CompanyDashboardLayout />}></Route>
       <Route path="code" element={<ResetPasswordLayout />}>
         <Route index element={<ResetEmail />} />
         <Route path="verification" element={<VerificationCode />} />
+      </Route>
+      <Route path="home" element={<ProtectedRoute />}>
+        <Route element={<RoleRoute allowedGroup="Client" />}>
+          <Route path="client" element={<ClientDashboardLayout />}>
+            <Route index element={<NewChat />} />
+            <Route path=":chatId" element={<Chat />} />
+          </Route>
+        </Route>
+        <Route element={<RoleRoute allowedGroup="Company" />}>
+          <Route path="company" element={<CompanyDashboardLayout />} />
+        </Route>
       </Route>
     </Routes>
   )

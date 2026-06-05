@@ -62,7 +62,7 @@ function RegisterClient() {
     const errs = validate(userDetails)
     setErrors(errs)
     if (Object.keys(errs).length > 0) return
-    handleSignUp(userDetails.email, userDetails.password, navigate)
+    handleSignUp(userDetails.email, userDetails.password, navigate, 'Client')
   }
   submitRef.current = handleSubmit
 

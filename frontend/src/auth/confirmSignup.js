@@ -8,7 +8,7 @@ export const handleConfirm = async (email, code, navigate) => {
       confirmationCode: code,
     })
     toast.success("Registered Successfully")
-    navigate("/client")
+    navigate("/home")
   } catch (error) {
     toast.error(error.message || "Something went wrong.")
   }

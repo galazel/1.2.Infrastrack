@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import ProfilePicture from "@/components/ProfilePicture"
-import { useOutletContext } from "react-router-dom"
+import { useOutletContext, useNavigate } from "react-router-dom"
 import {handleSignUp} from '../auth/signup'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -43,6 +43,7 @@ function validate(values) {
 }
 
 function RegisterPageCompany() {
+  const navigate = useNavigate()
   const { submitRef } = useOutletContext()
   const [userDetails, setUserDetails] = useState({
     companyName: "",
@@ -68,7 +69,7 @@ function RegisterPageCompany() {
     const errs = validate(userDetails)
     setErrors(errs)
     if (Object.keys(errs).length > 0) return
-    toast.success("submit company")
+    handleSignUp(userDetails.companyEmail, userDetails.password, navigate, 'Company')
   }
   submitRef.current = handleSubmit
 
