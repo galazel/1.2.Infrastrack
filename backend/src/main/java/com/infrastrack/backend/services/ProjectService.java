@@ -1,6 +1,5 @@
 package com.infrastrack.backend.services;
 
-import com.infrastrack.backend.commons.AuthenticationManagement;
 import com.infrastrack.backend.commons.ServiceGeneric;
 import com.infrastrack.backend.commons.ServiceParent;
 import com.infrastrack.backend.dto.ProjectDto;
@@ -8,7 +7,6 @@ import com.infrastrack.backend.mappers.ProjectMapper;
 import com.infrastrack.backend.models.Project;
 import com.infrastrack.backend.repositories.ProjectRepository;
 import jakarta.transaction.Transactional;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -20,8 +18,8 @@ public class ProjectService extends ServiceParent implements ServiceGeneric<Proj
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
 
-    public ProjectService(PasswordEncoder passwordEncoder, AuthenticationManagement authenticationManagement, VerificationService verificationService, S3Service s3Service, ProjectRepository projectRepository, ProjectMapper projectMapper) {
-        super(passwordEncoder, authenticationManagement, verificationService, s3Service);
+    public ProjectService(S3Service s3Service, ProjectRepository projectRepository, ProjectMapper projectMapper) {
+        super(s3Service);
         this.projectRepository = projectRepository;
         this.projectMapper = projectMapper;
     }
@@ -36,10 +34,6 @@ public class ProjectService extends ServiceParent implements ServiceGeneric<Proj
         return "";
     }
 
-    @Override
-    public void requestVerification(String email) {
-
-    }
 
     @Override
     public long create(ProjectDto dto) {
@@ -57,9 +51,6 @@ public class ProjectService extends ServiceParent implements ServiceGeneric<Proj
         try {
             Project project = projectRepository.findById(dto.getId())
                     .orElseThrow(() -> new RuntimeException("Project not found"));
-//            project.setName(dto.name());
-//            project.setDescription(dto.description());
-//            project.setStatus(dto.status());
             projectRepository.save(project);
 
             return "Project updated";

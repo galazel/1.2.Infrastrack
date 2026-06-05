@@ -1,19 +1,14 @@
 package com.infrastrack.backend.services;
 
-import com.infrastrack.backend.commons.AuthenticationManagement;
 import com.infrastrack.backend.commons.ServiceGeneric;
 import com.infrastrack.backend.commons.ServiceParent;
 import com.infrastrack.backend.dto.ReportDto;
 import com.infrastrack.backend.mappers.ReportMapper;
 import com.infrastrack.backend.models.Report;
 import com.infrastrack.backend.repositories.ReportRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.util.Date;
 
 @Service
 public class ReportService extends ServiceParent implements ServiceGeneric<ReportDto> {
@@ -21,8 +16,8 @@ public class ReportService extends ServiceParent implements ServiceGeneric<Repor
     private final ReportRepository reportRepository;
     private final ReportMapper reportMapper;
 
-    public ReportService(PasswordEncoder passwordEncoder, AuthenticationManagement authenticationManagement, VerificationService verificationService, S3Service s3Service, ReportRepository reportRepository, ReportMapper reportMapper, S3Service s3Service1) {
-        super(passwordEncoder, authenticationManagement, verificationService, s3Service);
+    public ReportService(S3Service s3Service, ReportRepository reportRepository, ReportMapper reportMapper, S3Service s3Service1) {
+        super(s3Service);
         this.reportRepository = reportRepository;
         this.reportMapper = reportMapper;
     }
@@ -37,10 +32,7 @@ public class ReportService extends ServiceParent implements ServiceGeneric<Repor
       return null;
     }
 
-    @Override
-    public void requestVerification(String email) {
 
-    }
 
     @Override
     public long create(ReportDto dto) {

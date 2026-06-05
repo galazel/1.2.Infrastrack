@@ -1,19 +1,14 @@
 package com.infrastrack.backend.services;
 
-import com.infrastrack.backend.commons.AuthenticationManagement;
 import com.infrastrack.backend.commons.ServiceGeneric;
 import com.infrastrack.backend.commons.ServiceParent;
 import com.infrastrack.backend.dto.FloorPlanDto;
 import com.infrastrack.backend.mappers.FloorPlanMapper;
-import com.infrastrack.backend.models.Blueprint;
 import com.infrastrack.backend.models.FloorPlan;
 import com.infrastrack.backend.repositories.FloorPlanRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.Map;
 
 @Service
 public class FloorPlanService extends ServiceParent implements ServiceGeneric<FloorPlanDto> {
@@ -21,8 +16,8 @@ public class FloorPlanService extends ServiceParent implements ServiceGeneric<Fl
     private final FloorPlanRepository floorPlanRepository;
     private final FloorPlanMapper floorPlanMapper;
 
-    public FloorPlanService(PasswordEncoder passwordEncoder, AuthenticationManagement authenticationManagement, VerificationService verificationService, S3Service s3Service, FloorPlanRepository floorPlanRepository, FloorPlanMapper floorPlanMapper) {
-        super(passwordEncoder, authenticationManagement, verificationService, s3Service);
+    public FloorPlanService(S3Service s3Service, FloorPlanRepository floorPlanRepository, FloorPlanMapper floorPlanMapper) {
+        super(s3Service);
         this.floorPlanRepository = floorPlanRepository;
         this.floorPlanMapper = floorPlanMapper;
     }
@@ -37,10 +32,6 @@ public class FloorPlanService extends ServiceParent implements ServiceGeneric<Fl
         return null;
     }
 
-    @Override
-    public void requestVerification(String email) {
-
-    }
 
     @Override
     public long create(FloorPlanDto dto) {

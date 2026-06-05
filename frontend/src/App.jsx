@@ -9,23 +9,31 @@ import ClientDashboardLayout from "./layouts/ClientDashboardLayout"
 import CompanyDashboardLayout from "./layouts/CompanyDashboardLayout"
 import NewChat from "./pages/NewChat"
 import Chat from "./pages/Chat"
+import ResetPassword from "./pages/VerificationCode"
+import ResetPasswordLayout from "./layouts/ResetPasswordLayout"
+import ResetEmail from "./pages/ResetEmail"
+import VerificationCode from "./pages/VerificationCode"
 
 function App() {
   return (
     <Routes>
       <Route path="/" element={<AccountLayout />}>
         <Route index element={<Login />} />
-        <Route path="/setup" element={<SetupAccount />} />
+        <Route path="setup" element={<SetupAccount />} />
       </Route>
       <Route path="register" element={<RegisterLayout />}>
         <Route path="company" element={<RegisterCompany />} />
         <Route path="client" element={<RegisterClient />} />
       </Route>
-      <Route path="gg" element={<ClientDashboardLayout />}>
+      <Route path="client" element={<ClientDashboardLayout />}>
         <Route index element={<NewChat />} />
         <Route path=":chatId" element={<Chat />} />
       </Route>
-      <Route path="dd" element={<CompanyDashboardLayout />}></Route>
+      <Route path="company" element={<CompanyDashboardLayout />}></Route>
+      <Route path="code" element={<ResetPasswordLayout />}>
+        <Route index element={<ResetEmail />} />
+        <Route path="verification" element={<VerificationCode />} />
+      </Route>
     </Routes>
   )
 }

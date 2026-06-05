@@ -1,23 +1,15 @@
 package com.infrastrack.backend.services;
 
-import com.infrastrack.backend.commons.AuthenticationManagement;
 import com.infrastrack.backend.commons.ServiceGeneric;
 import com.infrastrack.backend.commons.ServiceParent;
 import com.infrastrack.backend.dto.BlueprintDto;
 import com.infrastrack.backend.mappers.BlueprintMapper;
 import com.infrastrack.backend.models.Blueprint;
-import com.infrastrack.backend.models.Project;
 import com.infrastrack.backend.repositories.BlueprintRepository;
-import dev.langchain4j.agent.tool.P;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import software.amazon.awssdk.core.ResponseInputStream;
-import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,8 +20,8 @@ public class BlueprintService extends ServiceParent implements ServiceGeneric<Bl
     private final BlueprintRepository blueprintRepository;
     private final S3Service  s3Service;
 
-    public BlueprintService(PasswordEncoder passwordEncoder, AuthenticationManagement authenticationManagement, VerificationService verificationService, S3Service s3Service, BlueprintRepository blueprintRepository, BlueprintMapper blueprintMapper, S3Service s3Service1, S3Service s3Service2) {
-        super(passwordEncoder, authenticationManagement, verificationService, s3Service);
+    public BlueprintService( S3Service s3Service, BlueprintRepository blueprintRepository, BlueprintMapper blueprintMapper, S3Service s3Service1, S3Service s3Service2) {
+        super( s3Service);
         this.blueprintRepository = blueprintRepository;
         this.s3Service = s3Service2;
     }
@@ -42,11 +34,6 @@ public class BlueprintService extends ServiceParent implements ServiceGeneric<Bl
     @Override
     public String register(BlueprintDto dto , String code, MultipartFile file) {
         return null;
-    }
-
-    @Override
-    public void requestVerification(String email) {
-
     }
 
     @Override
