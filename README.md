@@ -1,109 +1,80 @@
 # 🏗️ Infrastrack
-
 **AI-Powered Construction Monitoring System**
 
-Infrastrack is a web-based platform that improves construction project monitoring by connecting **clients and contractors through real-time updates and an AI assistant (Contractor AI)**.
-
-It allows construction companies to manage projects, upload progress updates, and lets clients track the progress of their homes and ask questions using AI.
+Infrastrack is a web-based platform that bridges the gap between construction companies and their clients through real-time project monitoring, milestone tracking, and an AI assistant — **Contractor AI** — that answers client questions about their construction in plain, human-friendly language.
 
 ---
 
-## 🚀 Features
+## ✨ Features
 
-### 🏢 For Contractors / Companies
-- Create and manage construction projects
-- Upload progress updates (images, notes, and milestones)
-- Track project stages (foundation, framing, finishing, etc.)
-- Manage assigned clients per project
+### 🏢 For Contractors
+- Create and manage construction projects end-to-end
+- Upload progress updates with images, notes, and milestones
+- Track project stages (foundation, framing, roofing, finishing, etc.)
+- Manage clients assigned to each project
 
 ### 👨‍💼 For Clients
-- View real-time construction progress
-- Monitor project updates visually and chronologically
-- Ask questions about their construction via AI
-- Receive simplified progress explanations
+- View real-time construction progress with visual and chronological timelines
+- Monitor project milestones and upcoming stages
+- Ask questions about their project through the AI assistant
 
 ### 🤖 Contractor AI
-- AI-powered assistant for construction inquiries
-- Answers questions like:
-  - “What is the current progress of my house?”
-  - “What stage is the project in?”
-  - “What will happen next?”
-- Provides clear and human-friendly project summaries
+An LLM-powered assistant that answers client construction queries in plain language:
+- *"What is the current progress of my house?"*
+- *"What stage is the project in?"*
+- *"What will happen next?"*
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Frontend
-- React
-- Tailwind CSS
-- Axios
-- React Router
-
-### Backend
-- Spring Boot
-- Spring Security (JWT Authentication)
-- JPA / Hibernate
-
-### Database
-- MySQL / PostgreSQL
-
-### Storage
-- AWS S3 (for images and project files)
-
-### AI
-- Contractor AI (LLM-powered assistant for construction insights)
+| Layer | Technology |
+|---|---|
+| **Frontend** | React, Tailwind CSS, Axios, React Router |
+| **Backend** | Spring Boot, Spring Security (JWT), JPA / Hibernate |
+| **Authentication** | Amazon Cognito (sign-up, sign-in, role-based access via User Groups) |
+| **Storage** | Amazon S3 (project images and files) |
+| **Serverless** | AWS Lambda (AI processing and event-driven functions) |
+| **Database** | MySQL / PostgreSQL |
+| **AI** | LLM-powered Contractor AI assistant |
 
 ---
 
-## 🎨 UI/UX Design
+## ☁️ AWS Services
 
-This project is based on a custom Figma design for a construction monitoring system with AI-powered client communication.
+### 🔐 Amazon Cognito
+- User sign-up and sign-in with secure token issuance
+- JWT tokens validated by Spring Security on every API request
+- Role-based access control via **Cognito User Groups** (`Client`, `Contractor`, `Admin`)
 
-🔗 Figma Design:  
-https://www.figma.com/design/BC9LGfvYrXJVV7zp7PB6qx/Infrastrack?node-id=0-1&t=kvajtU73XyJ4qUtJ-1
+```js
+const groups = payload["cognito:groups"];
+if (groups?.includes("Contractor")) {
+  // Grant access to project update endpoints
+}
+```
 
-### ✨ Design Highlights
-- Modern dashboard layout for construction monitoring
-- Project-based UI structure (company → projects → updates)
-- Clean and minimal interface for better readability
-- AI chat interface for Contractor AI
-- Mobile-friendly responsive design approach
-- Focus on usability for both clients and contractors
+### 🗂️ Amazon S3
+- Stores all construction progress images and project files
+- Presigned URLs used for secure, time-limited file access
 
----
-
-## 🔄 Workflow
-
-1. Company creates a construction project  
-2. Contractors upload progress updates (images + notes)  
-3. Data is stored in the backend and database  
-4. Clients view real-time progress updates  
-5. Clients ask Contractor AI questions  
-6. AI responds based on project data  
+### ⚡ AWS Lambda
+- Powers serverless AI processing for Contractor AI queries
+- Triggered by API Gateway or S3 events as needed
 
 ---
 
-## 🎯 Project Goal
+## 🔐 Authentication Flow
 
-To improve transparency and communication in construction projects by combining:
-- Real-time progress tracking
-- Centralized project management
-- AI-powered client communication
-
----
-
-## 🚀 Future Improvements
-
-- Mobile application (Android / iOS)
-- Real-time notifications
-- 3D visualization of construction progress
-- Voice-enabled AI assistant
-- Task scheduling for contractors
-- Role-based analytics dashboard
-
----
-
-## 👨‍💻 Author
-
-Built by **Glyzel Galagar**
+```
+User ──► Login via Cognito ──► JWT issued
+                                    │
+                                    ▼
+Frontend ──► Sends JWT in Authorization header
+                                    │
+                                    ▼
+Spring Security ──► Validates JWT, extracts roles from Cognito Groups
+                                    │
+                                    ▼
+API ──► Grants or restricts access based on role (Client / Contractor / Admin)
+```
