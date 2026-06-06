@@ -17,7 +17,6 @@ import { useState } from "react"
 import { handleSignIn } from "../auth/signin"
 import { handleResetPasswordRequest } from "../auth/password"
 
-
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function validate({ email, password }) {
@@ -77,11 +76,13 @@ function LoginClient() {
   return (
     <div className="flex h-full w-full flex-col justify-between p-10">
       <div className="invisible">fdsa</div>
-
       <div>
         <FieldSet>
-          <FieldLegend className="text-5xl font-bold">
-            Log into INFRASTRACK
+          <FieldLegend>
+            <h2>
+              {" "}
+              Log into <span>INFRASTRACK</span>{" "}
+            </h2>
           </FieldLegend>
           <FieldDescription>
             Sign in to continue to your account.
@@ -140,23 +141,19 @@ function LoginClient() {
           )}
 
           <FieldGroup>
-            <Button
-              className="h-13 w-full cursor-pointer bg-blue-500 text-white hover:bg-blue-600"
+            <button
+              className="button-primary"
               variant="outline"
               onClick={handleSubmit}
               disabled={submitting}
             >
               {submitting ? "Signing in…" : "Sign Up"}
-            </Button>
+            </button>
           </FieldGroup>
         </FieldSet>
       </div>
 
-      <Button
-        className="h-13 w-full cursor-pointer bg-blue-500 text-white hover:bg-blue-600"
-        variant="outline"
-        onClick={() => navigate("/setup")}
-      >
+      <Button variant="outline" onClick={() => navigate("/setup")}>
         Create an Account
       </Button>
     </div>

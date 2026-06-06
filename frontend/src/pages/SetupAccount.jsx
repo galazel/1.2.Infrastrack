@@ -28,13 +28,17 @@ function SetupAccount() {
   ]
   return (
     <div className="flex h-full w-full flex-col items-center justify-center gap-4 p-5">
-      <h2 className="text-2xl font-bold">Setup Account</h2>
+      <h2>Setup Account</h2>
       <div className="flex h-50 w-full items-center justify-center gap-5">
         {images.map((item, index) => {
           return (
             <div
               key={index}
-              onClick={() => navigate(item.link, {state: {description: item.description}})}
+              onClick={() =>
+                navigate(item.link, {
+                  state: { description: item.description },
+                })
+              }
             >
               <Tooltip>
                 <TooltipTrigger>
@@ -44,7 +48,7 @@ function SetupAccount() {
                     className="h-full cursor-pointer rounded-full transition-transform hover:scale-105"
                   ></Image>
                 </TooltipTrigger>
-                <TooltipContent>
+                <TooltipContent side="bottom">
                   <p>{item.alt}</p>
                 </TooltipContent>
               </Tooltip>
