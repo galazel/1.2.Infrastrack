@@ -1,44 +1,70 @@
-import { signIn } from "aws-amplify/auth";
-import { toast } from "sonner";
+import { signIn, fetchAuthSession } from "aws-amplify/auth"
+import { toast } from "sonner"
 
-export const handleSignIn = async (email, password) => {
+export const handleSignIn = async (email, password, navigate, refresh) => {
   try {
-    const { isSignedIn } = await signIn({
-      username: email,
-      password,
-    });
+    const user = await signIn({ username: email, password })
 
-    if (isSignedIn) {
-      toast.success("Login successful!");
+    if (user) {
+      await refresh()
+      toast.success("Login successful!")
+      const session = await fetchAuthSession({ forceRefresh: true })
+      console.log("full session:", session)
+      console.log("access payload:", session?.tokens?.accessToken?.payload)
+      
+      const accessPayload =
+        session?.tokens?.accessToken?.payload ||
+        session?.accessToken?.payload ||
+        session?.signInUserSession?.accessToken?.payload ||
+        null
+
+      const idPayload =
+        session?.tokens?.idToken?.payload ||
+        session?.idToken?.payload ||
+        session?.signInUserSession?.idToken?.payload ||
+        null
+
+      const groups =
+        (accessPayload && accessPayload["cognito:groups"]) ||
+        (idPayload && idPayload["cognito:groups"]) ||
+        []
+
+      const roleFromId =
+        (idPayload && idPayload["custom:role"]) ||
+        (accessPayload && accessPayload["custom:role"]) ||
+        null
+
+      console.log("session payload groups:", groups, "role:", roleFromId)
+
+      const roleLower = roleFromId ? String(roleFromId).toLowerCase() : null
+      if (roleLower === "company" || groups.includes("Company")) {
+        navigate("/home/company")
+      } else {
+        navigate("/home/client")
+      }
     }
   } catch (error) {
     switch (error.name) {
       case "NotAuthorizedException":
-      toast.error("Incorrect email or password.");
-        break;
-
+        toast.error("Incorrect email or password.")
+        break
       case "UserNotFoundException":
-      toast.error("Account does not exist.");
-        break;
-
+        toast.error("Account does not exist.")
+        break
       case "UserNotConfirmedException":
-      toast.error("Please verify your email first.");
-        break;
-
+        toast.error("Please verify your email first.")
+        break
       case "PasswordResetRequiredException":
-      toast.error("Password reset is required.");
-        break;
-
+        toast.error("Password reset is required.")
+        break
       case "TooManyRequestsException":
-      toast.error("Too many login attempts. Try again later.");
-        break;
-
+        toast.error("Too many login attempts. Try again later.")
+        break
       case "UserAlreadyAuthenticatedException":
-      toast.error("You are already signed in.");
-        break;
-
+        toast.error("You are already signed in.")
+        break
       default:
-      toast.error(error.message || "Something went wrong.");
+        toast.error(error.message || "Something went wrong.")
     }
   }
-};
+}

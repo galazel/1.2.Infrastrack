@@ -17,6 +17,7 @@ import { useState } from "react"
 import { handleSignIn } from "../auth/signin"
 import { handleResetPasswordRequest } from "../auth/password"
 
+
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 function validate({ email, password }) {
@@ -62,7 +63,7 @@ function LoginClient() {
     setSubmitting(true)
     setSubmitError("")
     try {
-      await handleSignIn(values.email, values.password)
+      await handleSignIn(values.email, values.password, navigate)
     } catch {
       setSubmitError("Something went wrong. Please try again.")
     } finally {

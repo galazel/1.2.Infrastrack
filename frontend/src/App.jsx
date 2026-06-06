@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom"
+import { Routes, Route, Navigate } from "react-router-dom"
 import AccountLayout from "./layouts/AccountLayout"
 import SetupAccount from "./pages/SetupAccount"
 import RegisterCompany from "./pages/RegisterCompany"
@@ -13,8 +13,8 @@ import ResetPassword from "./pages/VerificationCode"
 import ResetPasswordLayout from "./layouts/ResetPasswordLayout"
 import ResetEmail from "./pages/ResetEmail"
 import VerificationCode from "./pages/VerificationCode"
-import ProtectedRoute from "./components/ProtectedRoute"
 import RoleRoute from "./components/RoleRoute"
+import RedirectByRole from "./components/RedirectByRole"
 
 function App() {
   return (
@@ -31,7 +31,7 @@ function App() {
         <Route index element={<ResetEmail />} />
         <Route path="verification" element={<VerificationCode />} />
       </Route>
-      <Route path="home" element={<ProtectedRoute />}>
+      <Route path="home" element={<RedirectByRole />}>
         <Route element={<RoleRoute allowedGroup="Client" />}>
           <Route path="client" element={<ClientDashboardLayout />}>
             <Route index element={<NewChat />} />

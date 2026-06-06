@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input"
 import ProfilePicture from "@/components/ProfilePicture"
 import { useOutletContext, useNavigate } from "react-router-dom"
 import {handleSignUp} from '../auth/signup'
-
+import { useAuth } from "../hooks/AuthProvider"
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const USERNAME_REGEX = /^[a-zA-Z0-9_]{3,20}$/
@@ -51,6 +51,7 @@ function RegisterClient() {
     profilePicture: null,
     projectCode: "",
   })
+
   const [errors, setErrors] = useState({})
   const handleChange = (field) => (e) => {
     setUserDetails((prev) => ({ ...prev, [field]: e.target.value }))

@@ -6,7 +6,7 @@ import { ThemeProvider } from "@/components/theme-provider.tsx"
 import { BrowserRouter } from "react-router-dom"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Toaster } from "@/components/ui/sonner"
-
+import { AuthProvider } from "./hooks/AuthProvider.jsx"
 import { Amplify } from "aws-amplify"
 
 Amplify.configure({
@@ -30,9 +30,10 @@ createRoot(rootElement).render(
     <ThemeProvider>
       <BrowserRouter>
         <TooltipProvider>
-          {" "}
           <Toaster />
-          <App />
+          <AuthProvider>
+            <App />
+          </AuthProvider>
         </TooltipProvider>
       </BrowserRouter>
     </ThemeProvider>

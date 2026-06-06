@@ -11,26 +11,28 @@ import { Button } from "@/components/ui/button"
 import Code from "@/components/Code"
 import { handleResetPasswordConfirm } from "../auth/password"
 import { handleConfirm } from "../auth/confirmSignup"
+import { useAuth } from "../hooks/AuthProvider"
 
 function VerificationCode() {
   const [code, setCode] = useState("")
   const [newPassword, setNewPassword] = useState("")
   const [error, setError] = useState("")
   const [step, setStep] = useState("otp")
+    const { refresh } = useAuth()
 
   const location = useLocation()
   const navigate = useNavigate()
 
   const email = location.state?.email
   const type = location.state?.type
+  const password = location.state?.password
 
-  const handleOTPComplete = (value) => {
-    setCode(value)
+  const handleOTPComplete = () => {
     setStep("newPassword")
   }
 
   const handleSignUpConfirm = () => {
-    handleConfirm(email, code, navigate) 
+    handleConfirm(email, code, password, navigate, refresh)
   }
 
   const handleSubmit = async () => {

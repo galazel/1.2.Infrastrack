@@ -24,7 +24,7 @@ function Code({setCode,handleOTPComplete}) {
         <InputOTPSlot index={5} className="h-16 w-16 text-xl" />
       </InputOTPGroup>
     </InputOTP>
-    <Button className='w-full' onClick={handleOTPComplete}>Hello</Button>
+    <Button className='w-full' onClick={handleOTPComplete}>Confirm</Button>
   </div>
   
   

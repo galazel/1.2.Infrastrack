@@ -11,7 +11,7 @@ export const handleSignUp = async (email, password, navigate, role) => {
       },
     })
     navigate("/code/verification", {
-      state: { type: "signUpVerification", email: email },
+      state: { type: "signUpVerification", email: email, password: password },
     })
   } catch (error) {
     toast.error(error.message || "Something went wrong.")
