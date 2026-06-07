@@ -79,5 +79,6 @@ Spring Security ──► Validates JWT, extracts roles from Cognito Groups
 API ──► Grants or restricts access based on role (Client / Contractor / Admin)
 ```
 ## Screenshots
-<img width="1906" height="909" alt="image" src="https://github.com/user-attachments/assets/fb6dcdcb-cdda-4273-a820-56cb8ecc00ec" />
+<img width="1906" height="909" alt="Capture" src="https://github.com/user-attachments/assets/4a848d5f-be23-4e0a-88fe-dde490ba3c25" />
+
 
