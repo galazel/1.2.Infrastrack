@@ -16,6 +16,7 @@ import { useNavigate, Link } from "react-router-dom"
 import { useState } from "react"
 import { handleSignIn } from "../auth/signin"
 import { handleResetPasswordRequest } from "../auth/password"
+import { useAuth } from "../hooks/AuthProvider"
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -39,6 +40,7 @@ function LoginClient() {
   const [submitting, setSubmitting] = useState(false)
   const [submitError, setSubmitError] = useState("")
   const navigate = useNavigate()
+  const {refresh} = useAuth()
 
   const handleChange = (field) => (e) => {
     const next = { ...values, [field]: e.target.value }
@@ -62,7 +64,7 @@ function LoginClient() {
     setSubmitting(true)
     setSubmitError("")
     try {
-      await handleSignIn(values.email, values.password, navigate)
+      await handleSignIn(values.email, values.password, navigate, refresh)
     } catch {
       setSubmitError("Something went wrong. Please try again.")
     } finally {

@@ -15,6 +15,7 @@ import ResetEmail from "./pages/ResetEmail"
 import VerificationCode from "./pages/VerificationCode"
 import RoleRoute from "./components/RoleRoute"
 import RedirectByRole from "./components/RedirectByRole"
+import PageNotFound from "./components/PageNotFound"
 
 function App() {
   return (
@@ -22,26 +23,38 @@ function App() {
       <Route path="/" element={<AccountLayout />}>
         <Route index element={<Login />} />
         <Route path="setup" element={<SetupAccount />} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
+
       <Route path="register" element={<RegisterLayout />}>
         <Route path="company" element={<RegisterCompany />} />
         <Route path="client" element={<RegisterClient />} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
+
       <Route path="code" element={<ResetPasswordLayout />}>
         <Route index element={<ResetEmail />} />
         <Route path="verification" element={<VerificationCode />} />
+        <Route path="*" element={<PageNotFound />} />
       </Route>
+
       <Route path="home" element={<RedirectByRole />}>
         <Route element={<RoleRoute allowedGroup="Client" />}>
           <Route path="client" element={<ClientDashboardLayout />}>
             <Route index element={<NewChat />} />
             <Route path=":chatId" element={<Chat />} />
+            <Route path="*" element={<PageNotFound />} />
           </Route>
         </Route>
         <Route element={<RoleRoute allowedGroup="Company" />}>
-          <Route path="company" element={<CompanyDashboardLayout />} />
+          <Route path="company" element={<CompanyDashboardLayout />}>
+            <Route path="*" element={<PageNotFound />} />
+          </Route>
         </Route>
+        <Route path="*" element={<PageNotFound />} />
       </Route>
+
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   )
 }

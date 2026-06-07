@@ -1,4 +1,5 @@
 import { signIn, fetchAuthSession } from "aws-amplify/auth"
+import { replace } from "react-router-dom"
 import { toast } from "sonner"
 
 export const handleSignIn = async (email, password, navigate, refresh) => {
@@ -38,9 +39,9 @@ export const handleSignIn = async (email, password, navigate, refresh) => {
 
       const roleLower = roleFromId ? String(roleFromId).toLowerCase() : null
       if (roleLower === "company" || groups.includes("Company")) {
-        navigate("/home/company")
+        navigate("/home/company",{replace: true})
       } else {
-        navigate("/home/client")
+        navigate("/home/client",{replace: true})
       }
     }
   } catch (error) {

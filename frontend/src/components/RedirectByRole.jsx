@@ -6,9 +6,10 @@ function RedirectByRole() {
   const { pathname } = useLocation()
 
   if (!isLoggedIn) return <Navigate to="/" replace />
-  
+
   if (pathname === "/home") {
-    if (groups.includes("Company")) return <Navigate to="/home/company" replace />
+    if (groups.includes("Company"))
+      return <Navigate to="/home/company" replace />
     return <Navigate to="/home/client" replace />
   }
 
