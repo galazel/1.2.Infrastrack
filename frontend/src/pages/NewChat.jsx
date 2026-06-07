@@ -1,6 +1,6 @@
-import React from "react"
-import Image from "@/components/Image"
 import { useOutletContext } from "react-router-dom"
+import Image from "@/components/Image"
+import engineerProfile from "@/assets/engineer-ai-profile.webp"
 
 function NewChat() {
   const { conversation } = useOutletContext()
@@ -10,15 +10,13 @@ function NewChat() {
       <div className="flex h-full w-full items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-1">
           <Image
-            src="/engineer-ai-profile.webp"
-            alt="engineer profile"
+            src={engineerProfile}
+            alt="Engineer Contractor AI profile"
             className="h-70 w-110 rounded-full"
           />
-
           <p className="text-3xl font-extrabold">
             Eng. Contractor AI
           </p>
-
           <p className="w-145 text-center">
             Engr. Contractor AI is a smart construction assistant that helps
             you track your house progress, budget, and updates in real time
@@ -34,11 +32,10 @@ function NewChat() {
       {/* Header */}
       <div className="flex items-center gap-3 border-b pb-3">
         <Image
-          src="/engineer-ai-profile.webp"
-          alt="engineer profile"
+          src={engineerProfile}
+          alt="Engineer Contractor AI profile"
           className="h-10 w-10 rounded-full"
         />
-
         <p className="text-lg font-extrabold">
           Eng. Contractor AI
         </p>

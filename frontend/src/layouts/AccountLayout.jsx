@@ -1,59 +1,62 @@
-import Image from "../../../frontend/src/components/Image";
-import {Outlet} from 'react-router-dom'
+import { Outlet } from "react-router-dom"
+import Image from "@/components/Image"
+import infrastrack from "../assets/infrastrack-logo.webp"
+import five from "../assets/5.webp"
+import four from "../assets/4.webp"
+import three from "../assets/3.webp"
+import two from "../assets/2.webp"
+import one from "../assets/1.webp"
+import six from "../assets/6.webp"
 
 function AccountLayout() {
   return (
-    <main className="h-screen grid grid-cols-[1fr_31%]">
-      <section className="grid grid-rows-[10%_1fr] border-r-2 border-yellow-300 rounded-tr-2xl rounded-br-2xl">
-        <div className="flex justify-start items-center h-full  ">
-          <Image
-            src="/infrastrack-logo.webp"
-            alt="Description"
-            className="w-[10%] "
-          />
+    <main className="grid h-screen grid-cols-[1fr_31%]">
+      <section className="grid grid-rows-[10%_1fr] rounded-tr-2xl rounded-br-2xl border-r-2 border-yellow-300">
+        <div className="flex h-full items-center justify-start">
+          <Image src={infrastrack} alt="Infrastrack logo" className="w-[10%]" />
         </div>
-        <div className="flex items-center justify-center relative h-full ">
+        <div className="relative flex h-full items-center justify-center">
           <Image
-            src="/5.webp"
-            alt="Description"
-            className="size-[150px] rounded-4xl absolute left-100 top-20 rotate-[-25deg] "
+            src={five}
+            alt="Construction image 5"
+            className="absolute top-20 left-100 size-[150px] rotate-[-25deg] rounded-4xl"
           />
           <Image
-            src="/1.webp"
-            alt="Description"
-            className="size-[300px] rounded-4xl top-50 absolute left-1/3 shadow-lg"
+            src={one}
+            alt="Construction image 1"
+            className="absolute top-50 left-1/3 size-[300px] rounded-4xl shadow-lg"
           />
           <Image
-            src="/2.webp"
-            alt="Description"
-            className="w-[25%] rounded-4xl absolute left-1/2 top-10"
+            src={two}
+            alt="Construction image 2"
+            className="absolute top-10 left-1/2 w-[25%] rounded-4xl"
           />
           <Image
-            src="/3.webp"
-            alt="Description"
-            className="w-[15%] rounded-4xl absolute left-50% bottom-50"
+            src={three}
+            alt="Construction image 3"
+            className="left-50% absolute bottom-50 w-[15%] rounded-4xl"
           />
           <Image
-            src="/6.webp"
-            alt="Description"
-            className="w-[15%] rounded-4xl absolute right-45 bottom-70"
+            src={six}
+            alt="Construction image 6"
+            className="absolute right-45 bottom-70 w-[15%] rounded-4xl"
           />
           <Image
-            src="/4.webp"
-            alt="Description"
-            className="w-50 h-50 rounded-full absolute right-100 bottom-50 border-4 border-yellow-400 shadow-lg"
+            src={four}
+            alt="Construction image 4"
+            className="absolute right-100 bottom-50 h-50 w-50 rounded-full border-4 border-yellow-400 shadow-lg"
           />
-          <h1 className = 'absolute left-10 bottom-50 w-125 text-3xl font-extrabold'>
-            AI Construction Progress Assistant — Simple, <span>Real-Time Updates</span> for
-            Your Dream House
+          <h1 className="absolute bottom-50 left-10 w-125 text-3xl font-extrabold">
+            AI Construction Progress Assistant — Simple,{" "}
+            <span>Real-Time Updates</span> for Your Dream House
           </h1>
         </div>
       </section>
-      <section className="p-5 flex items-center justify-center h-full">
+      <section className="flex h-full items-center justify-center p-5">
         <Outlet />
       </section>
     </main>
-  );
+  )
 }
 
-export default AccountLayout;
+export default AccountLayout
