@@ -1,6 +1,6 @@
 import { confirmSignUp } from "aws-amplify/auth"
 import { toast } from "sonner"
-import { handleSignIn } from "./signin"
+import { handleSignIn } from "./signIn"
 
 export const handleConfirm = async (email, code, password, navigate, refresh) => {
   try {

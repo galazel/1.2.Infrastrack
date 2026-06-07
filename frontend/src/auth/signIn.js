@@ -10,8 +10,7 @@ export const handleSignIn = async (email, password, navigate, refresh) => {
       await refresh()
       toast.success("Login successful!")
       const session = await fetchAuthSession({ forceRefresh: true })
-      console.log("full session:", session)
-      console.log("access payload:", session?.tokens?.accessToken?.payload)
+
       
       const accessPayload =
         session?.tokens?.accessToken?.payload ||

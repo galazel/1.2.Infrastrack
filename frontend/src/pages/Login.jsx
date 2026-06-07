@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useNavigate, Link } from "react-router-dom"
 import { useState } from "react"
-import { handleSignIn } from "../auth/signin"
+import { handleSignIn } from "../auth/signIn"
 import { handleResetPasswordRequest } from "../auth/password"
 import { useAuth } from "../hooks/AuthProvider"
 

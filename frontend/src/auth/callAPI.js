@@ -6,7 +6,7 @@ const callMyAPI = async () => {
 
   const response = await fetch('https://your-api.com/data', {
     headers: {
-      Authorization: `Bearer ${token}` // attach token here
+      Authorization: `Bearer ${token}` 
     }
   });
 }
