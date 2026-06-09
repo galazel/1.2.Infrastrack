@@ -139,7 +139,7 @@ function RegisterClient() {
 
       <FieldGroup>
         <FieldLabel htmlFor="profile-picture">Profile Picture</FieldLabel>
-        <ProfilePicture onFileSelect={handleProfilePicture} />
+        <FileUpload onFileSelect={handleProfilePicture} />
       </FieldGroup>
 
       <FieldGroup>
