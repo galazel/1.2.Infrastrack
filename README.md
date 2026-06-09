@@ -47,13 +47,6 @@ An LLM-powered assistant that answers client construction queries in plain langu
 - JWT tokens validated by Spring Security on every API request
 - Role-based access control via **Cognito User Groups** (`Client`, `Contractor`, `Admin`)
 
-```js
-const groups = payload["cognito:groups"];
-if (groups?.includes("Contractor")) {
-  // Grant access to project update endpoints
-}
-```
-
 ### 🗂️ Amazon S3
 - Stores all construction progress images and project files
 - Presigned URLs used for secure, time-limited file access
@@ -64,20 +57,6 @@ if (groups?.includes("Contractor")) {
 
 ---
 
-## 🔐 Authentication Flow
-
-```
-User ──► Login via Cognito ──► JWT issued
-                                    │
-                                    ▼
-Frontend ──► Sends JWT in Authorization header
-                                    │
-                                    ▼
-Spring Security ──► Validates JWT, extracts roles from Cognito Groups
-                                    │
-                                    ▼
-API ──► Grants or restricts access based on role (Client / Contractor / Admin)
-```
 ## Screenshots
 <img width="1906" height="909" alt="Capture" src="https://github.com/user-attachments/assets/4a848d5f-be23-4e0a-88fe-dde490ba3c25" />
 
