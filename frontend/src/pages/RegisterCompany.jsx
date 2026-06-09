@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import ProfilePicture from "@/components/ProfilePicture"
+import FileUpload from "@/components/Upload"
 import { useOutletContext, useNavigate } from "react-router-dom"
 import {handleSignUp} from '../auth/signup'
 

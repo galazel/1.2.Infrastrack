@@ -10,7 +10,7 @@ import {
   FieldSet,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import ProfilePicture from "@/components/ProfilePicture"
+import FileUpload from "@/components/Upload"
 import { useOutletContext, useNavigate } from "react-router-dom"
 import {handleSignUp} from '../auth/signup'
 import { useAuth } from "../hooks/AuthProvider"
