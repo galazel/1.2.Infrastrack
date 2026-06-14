@@ -42,14 +42,21 @@ function dateOrder(start, end) {
 
 function CustomerDetails({ setPage, setDetails, details }) {
   const [local, setLocal] = useState({
-    firstName: "", lastName: "", email: "", contactNumber: "", address: "",
+    firstName:     details?.customerDetails?.firstName     ?? "",
+    lastName:      details?.customerDetails?.lastName      ?? "",
+    email:         details?.customerDetails?.email         ?? "",
+    contactNumber: details?.customerDetails?.contactNumber ?? "",
+    address:       details?.customerDetails?.address       ?? "",
   })
   const [errors, setErrors] = useState({})
 
   function change(key, val) {
     setLocal((p) => ({ ...p, [key]: val }))
     setErrors((p) => ({ ...p, [key]: null }))
-    setDetails?.((p) => ({ ...p, [key]: val }))
+    setDetails?.((p) => ({
+      ...p,
+      customerDetails: { ...p.customerDetails, [key]: val },
+    }))
   }
 
   function validate() {
@@ -65,6 +72,7 @@ function CustomerDetails({ setPage, setDetails, details }) {
   }
 
   CustomerDetails._validate = validate
+
   return (
     <div className="flex flex-col gap-5">
       <h3>CUSTOMER DETAILS</h3>
@@ -141,26 +149,34 @@ function CustomerDetails({ setPage, setDetails, details }) {
           </Field>
         </FieldGroup>
       </FieldSet>
-
-     
     </div>
   )
 }
 
 // ─── ProjectDetails ───────────────────────────────────────────────────────────
 
-function ProjectDetails({ setPage, setDetails }) {
+function ProjectDetails({ setPage, setDetails, details }) {
   const [local, setLocal] = useState({
-    projectName: "", projectType: "", projectAddress: "",
-    numFloors: "", lotArea: "", floorArea: "",
-    projectDescription: "", startDate: "", endDate: "", budget: "",
+    projectName:        details?.projectDetails?.projectName        ?? "",
+    projectType:        details?.projectDetails?.projectType        ?? "",
+    projectAddress:     details?.projectDetails?.projectAddress     ?? "",
+    numFloors:          details?.projectDetails?.numFloors          ?? "",
+    lotArea:            details?.projectDetails?.lotArea            ?? "",
+    floorArea:          details?.projectDetails?.floorArea          ?? "",
+    projectDescription: details?.projectDetails?.projectDescription ?? "",
+    startDate:          details?.projectDetails?.startDate          ?? "",
+    endDate:            details?.projectDetails?.endDate            ?? "",
+    budget:             details?.projectDetails?.budget             ?? "",
   })
   const [errors, setErrors] = useState({})
 
   function change(key, val) {
     setLocal((p) => ({ ...p, [key]: val }))
     setErrors((p) => ({ ...p, [key]: null }))
-    setDetails?.((p) => ({ ...p, [key]: val }))
+    setDetails?.((p) => ({
+      ...p,
+      projectDetails: { ...p.projectDetails, [key]: val },
+    }))
   }
 
   function validate() {
@@ -336,28 +352,51 @@ function ProjectDetails({ setPage, setDetails }) {
           </Field>
         </FieldGroup>
       </FieldSet>
-
-      
     </div>
   )
 }
 
 // ─── ProjectFilesStep ─────────────────────────────────────────────────────────
 
-function ProjectFilesStep({ setPage, handleSubmit, setDetails }) {
+function ProjectFilesStep({ setPage, handleSubmit, setDetails, details }) {
+  function setCoverImage(file) {
+    setDetails((p) => ({
+      ...p,
+      projectFiles: { ...p.projectFiles, coverImage: file },
+    }))
+  }
+
+  function setSections(updater) {
+    setDetails((p) => ({
+      ...p,
+      projectFiles: {
+        ...p.projectFiles,
+        sections: typeof updater === "function"
+          ? updater(p.projectFiles.sections)
+          : updater,
+      },
+    }))
+  }
+
   return (
     <div className="flex flex-col gap-5">
       <h3>PROJECT FILES</h3>
-      <FileUpload/>
+      <FileUpload
+        image={details?.projectFiles?.coverImage ?? null}
+        setImage={setCoverImage}
+      />
       <ProjectFiles
+        sections={details?.projectFiles?.sections}
+        setSections={setSections}
         setPage={setPage}
         handleSubmit={handleSubmit}
         setDetails={setDetails}
       />
-      <button className="button-primary">Create Project</button>
-    
+      <button className="button-primary" onClick={handleSubmit}>
+        Create Project
+      </button>
     </div>
   )
 }
 
-export { CustomerDetails, ProjectDetails,  ProjectFilesStep }
+export { CustomerDetails, ProjectDetails, ProjectFilesStep }

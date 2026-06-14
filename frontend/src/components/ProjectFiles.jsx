@@ -1,11 +1,10 @@
-import { useState, useCallback } from "react"
+import { useCallback } from "react"
 import { useDropzone } from "react-dropzone"
 
 const ACCEPTED_TYPES = {
   "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp"],
 }
 
-// Single droppable image slot
 function ImageSlot({ image, onAdd, onRemove }) {
   const onDrop = useCallback(
     (accepted) => {
@@ -59,7 +58,7 @@ function ImageSlot({ image, onAdd, onRemove }) {
       }`}
     >
       <input {...getInputProps()} />
-      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200 text-slate-400 transition-colors duration-150 group-hover:bg-indigo-100 group-hover:text-indigo-500">
+      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-200 text-slate-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="20"
@@ -81,9 +80,7 @@ function ImageSlot({ image, onAdd, onRemove }) {
   )
 }
 
-// A labeled section (e.g. "Room Layouts") with a dynamic row of slots
 function ImageSection({ label, images, onAdd, onRemove }) {
-  // Always show filled slots + one empty slot (unless max reached)
   const MAX = 6
   const slots = images.length < MAX ? [...images, null] : images
 
@@ -115,50 +112,8 @@ function ImageSection({ label, images, onAdd, onRemove }) {
   )
 }
 
-// Top-level Browse File dropzone (full-width, accepts multiple)
-function BrowseZone({ onFiles }) {
-  const onDrop = useCallback(
-    (accepted) => {
-      if (accepted.length) onFiles(accepted)
-    },
-    [onFiles]
-  )
-
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    accept: ACCEPTED_TYPES,
-    maxFiles: 20,
-  })
-
-  return (
-    <div
-      {...getRootProps()}
-      className={`flex cursor-pointer flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed px-8 py-8 transition-all duration-200 ${
-        isDragActive
-          ? "border-indigo-400 bg-indigo-50"
-          : "border-slate-300 bg-slate-50 hover:border-indigo-400"
-      }`}
-    >
-      <input {...getInputProps()} />
-      <p className="text-sm text-slate-500">
-        Drag files here or click to browse
-      </p>
-      <button className="rounded-xl border border-slate-300 bg-white px-6 py-2 text-sm font-medium text-slate-600 shadow-sm transition-all duration-150 hover:border-indigo-400 hover:text-indigo-600 active:scale-95">
-        Browse File
-      </button>
-    </div>
-  )
-}
-
-export default function ProjectFiles({ setPage, handleSubmit, setDetails }) {
-  const [sections, setSections] = useState({
-    "Room Layouts": [],
-    "Floor Plans": [],
-    "Blueprints": [],
-  })
-
+export default function ProjectFiles({ sections, setSections, setPage, handleSubmit, setDetails }) {
   const handleBrowse = (files) => {
-    // Distribute browsed files into the first section with space
     setSections((prev) => {
       const next = { ...prev }
       let remaining = files.map((f) =>
@@ -196,18 +151,15 @@ export default function ProjectFiles({ setPage, handleSubmit, setDetails }) {
 
   return (
     <div className="flex flex-col gap-6">
-
-      <div className="flex flex-col gap-6">
-        {Object.entries(sections).map(([label, images]) => (
-          <ImageSection
-            key={label}
-            label={label}
-            images={images}
-            onAdd={(i, file) => handleAdd(label, i, file)}
-            onRemove={(i) => handleRemove(label, i)}
-          />
-        ))}
-      </div>
+      {Object.entries(sections).map(([label, images]) => (
+        <ImageSection
+          key={label}
+          label={label}
+          images={images}
+          onAdd={(i, file) => handleAdd(label, i, file)}
+          onRemove={(i) => handleRemove(label, i)}
+        />
+      ))}
     </div>
   )
 }

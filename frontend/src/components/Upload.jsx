@@ -5,8 +5,7 @@ const ACCEPTED_TYPES = {
   "image/*": [".png", ".jpg", ".jpeg", ".gif", ".webp"],
 }
 
-function FileUpload() {
-  const [image, setImage] = useState(null)
+function FileUpload({ image, setImage }) {
   const [error, setError] = useState("")
 
   const onDrop = useCallback((accepted, rejected) => {
@@ -19,7 +18,7 @@ function FileUpload() {
       const file = Object.assign(accepted[0], { preview: URL.createObjectURL(accepted[0]) })
       setImage(file)
     }
-  }, [image])
+  }, [image, setImage])
 
   const removeImage = () => {
     if (image) URL.revokeObjectURL(image.preview)
@@ -58,9 +57,7 @@ function FileUpload() {
               <span className="text-xs tracking-wide text-gray-400">OR</span>
               <div className="h-px flex-1 bg-[#c5cdd8]" />
             </div>
-            <button
-              className="rounded-xl bg-indigo-600 px-9 py-3 text-[15px] font-medium text-white transition-all duration-150 hover:bg-indigo-700 active:scale-95"
-            >
+            <button className="rounded-xl bg-indigo-600 px-9 py-3 text-[15px] font-medium text-white transition-all duration-150 hover:bg-indigo-700 active:scale-95">
               Browse files
             </button>
           </div>

@@ -16,6 +16,8 @@ import VerificationCode from "./pages/VerificationCode"
 import RoleRoute from "./components/RoleRoute"
 import RedirectByRole from "./components/RedirectByRole"
 import PageNotFound from "./components/PageNotFound"
+import ViewProjectDetails from "./pages/ViewProjectDetails"
+import HomeCompany from "./pages/HomeCompany"
 
 function App() {
   return (
@@ -47,7 +49,9 @@ function App() {
           </Route>
         </Route>
         <Route element={<RoleRoute allowedGroup="Company" />}>
-          <Route path="company" element={<CompanyDashboardLayout />}>
+          <Route path="company" element={<CompanyDashboardLayout />}>  
+            <Route index element={<HomeCompany/>}/>
+            <Route path=":id" element={<ViewProjectDetails/>}/>
             <Route path="*" element={<PageNotFound />} />
           </Route>
         </Route>
